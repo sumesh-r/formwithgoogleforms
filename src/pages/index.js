@@ -37,6 +37,12 @@ const Form = () => {
             Name: name,
             Email: email,
           }),
+          mode: "no-cors",
+          credentials: "include", // include, *same-origin, omit
+          redirect: "follow",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
         }
       )
         .then((res) => res.json())
@@ -60,16 +66,33 @@ const Form = () => {
       setIsSubmitting(false);
     }
   };
+    function Submit(e) {
+      const formEle = document.querySelector("form");
+      const formDatab = new FormData(formEle);
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzL1q_VM82Vb6iGYoSJ97NObIFbpvoNjW4NEkpmK3jsb_23D8Y44rXXGKIJkc47syM9/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
 
   return (
     <div>
-      <form name="form" onSubmit={handleSubmit}>
+      <form name="form" onSubmit={(e) => Submit(e)}>
         <label htmlFor="name">Name:</label>
         <input
+          placeholder="Your Name"
+          name="Name"
           type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
           className={`border ${
             errors.name ? "border-red-500" : "border-gray-300"
           } px-2 py-1`}
@@ -78,10 +101,9 @@ const Form = () => {
 
         <label htmlFor="email">Email:</label>
         <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your Email"
+          name="Email"
+          type="text"
           className={`border ${
             errors.email ? "border-red-500" : "border-gray-300"
           } px-2 py-1`}
