@@ -1,13 +1,10 @@
-import { useForm, Controller } from "react-hook-form";
-const { Readable } = require("stream");
+import { useForm } from "react-hook-form";
 
 export default function RegistrationForm() {
   const {
     register,
     handleSubmit,
     reset,
-    control,
-    watch,
     formState: { errors }, // catch error messages
   } = useForm();
 
@@ -62,40 +59,16 @@ export default function RegistrationForm() {
           <label htmlFor="phoneNumber" className="block font-medium mb-2">
             phoneNumber
           </label>
-          <Controller
-            name="photo"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value, ref } }) => (
-              <input
-                type="text"
-                id="phoneNumber"
-                name="phoneNumber"
-                className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                {...register("phoneNumber", {
-                  required: "Please enter your phoneNumber",
-                })}
-              />
-            )}
+          <input
+            type="text"
+            id="phoneNumber"
+            name="phoneNumber"
+            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            {...register("phoneNumber", {
+              required: "Please enter your phoneNumber",
+            })}
           />
           {errors.phoneNumber && errors.phoneNumber.message}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="photo" className="block font-medium mb-2">
-            Photo (PNG or JPEG, max 5MB)
-          </label>
-          <input
-            type="file"
-            id="photo"
-            name="photo"
-            accept=".png, .jpeg"
-            {...register("photo", {
-              required: "photo is required",
-            })}
-            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          />
-          {errors.photo && errors.photo.message}
         </div>
 
         <div className="mb-4">
