@@ -12,10 +12,9 @@ export default function RegistrationForm() {
   } = useForm();
 
   function submitHandler(data) {
-    const photoData = data.photo[0];// assuming the photo input name is 'photo'
-    console.log(object);
-    data.photoData = photoData
-// console.log(data);
+    // const photoData = data.photo[0];// assuming the photo input name is 'photo'
+    // data.photoData = photoData
+    // console.log(data);
     fetch("/api/sheet", {
       method: "POST",
       body: JSON.stringify(data),
@@ -114,5 +113,3 @@ export default function RegistrationForm() {
     </div>
   );
 }
-
-
